@@ -6,6 +6,7 @@ const quickLinks = [
   { label: "Our Work", href: "#work" },
   { label: "Programs", href: "#programs" },
   { label: "Churches & Centres", href: "#churches" },
+  { label: "Latest News", href: "#blog" },
   { label: "Contact", href: "#contact" },
 ];
 

@@ -7,6 +7,7 @@ const navLinks = [
   { label: "Our Work", href: "#work" },
   { label: "Programs", href: "#programs" },
   { label: "Churches", href: "#churches" },
+  { label: "News", href: "#blog" },
   { label: "Contact", href: "#contact" },
 ];
 

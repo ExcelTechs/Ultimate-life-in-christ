@@ -5,6 +5,7 @@ import OurWorkSection from "@/components/OurWorkSection";
 import ProgramsSection from "@/components/ProgramsSection";
 import ChurchesSection from "@/components/ChurchesSection";
 import ContactSection from "@/components/ContactSection";
+import ImageScrollStrip from "@/components/ImageScrollStrip";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -17,6 +18,7 @@ const Index = () => {
       <ProgramsSection />
       <ChurchesSection />
       <ContactSection />
+      <ImageScrollStrip />
       <Footer />
     </div>
   );

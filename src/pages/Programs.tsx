@@ -184,26 +184,45 @@ export default function Programs() {
                   prog.imageLeft ? "lg:flex-row-reverse" : "lg:flex-row"
                 } gap-12 lg:gap-20 items-center`}
               >
-                {/* Image collage */}
-                <div className="lg:w-1/2 relative flex-shrink-0">
-                  <div className="relative">
+                {/* Image collage — stacked layout like reference */}
+                <div className="lg:w-1/2 relative flex-shrink-0 select-none" style={{ minHeight: "460px", height: "460px" }}>
+                  {/* Accent circles */}
+                  <div className="absolute -top-6 -left-6 w-20 h-20 rounded-full bg-gold/15 -z-10" />
+                  <div className="absolute -bottom-4 -right-4 w-14 h-14 rounded-full bg-gold/10 -z-10" />
+
+                  {/* Large background image — top right */}
+                  <div className="absolute top-0 right-0 w-[72%] h-[78%] rounded-2xl overflow-hidden shadow-lg">
                     <img
                       src={prog.image}
                       alt={prog.title}
-                      className="w-full rounded-2xl object-cover shadow-lg"
-                      style={{ height: "400px" }}
+                      className="w-full h-full object-cover object-top"
                       loading="lazy"
                     />
-                    {/* accent circle */}
-                    <div
-                      className={`absolute -z-10 w-64 h-64 rounded-full bg-gold/10 ${
-                        prog.imageLeft ? "-left-8 -bottom-8" : "-right-8 -bottom-8"
-                      }`}
+                  </div>
+
+                  {/* Bottom-left overlapping image */}
+                  <div className="absolute bottom-0 left-0 w-[50%] h-[52%] rounded-2xl overflow-hidden shadow-xl border-4 border-background">
+                    <img
+                      src={prog.image}
+                      alt={`${prog.title} — activity`}
+                      className="w-full h-full object-cover object-center"
+                      loading="lazy"
                     />
-                    {/* number badge */}
-                    <div className="absolute -top-4 -left-4 w-16 h-16 rounded-full gradient-gold flex items-center justify-center shadow-gold">
-                      <span className="font-display font-black text-navy text-xl">{prog.id}</span>
-                    </div>
+                  </div>
+
+                  {/* Bottom-right overlapping image */}
+                  <div className="absolute bottom-0 right-[4%] w-[40%] h-[42%] rounded-2xl overflow-hidden shadow-xl border-4 border-background">
+                    <img
+                      src={prog.image}
+                      alt={`${prog.title} — community`}
+                      className="w-full h-full object-cover object-bottom"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  {/* Number badge */}
+                  <div className="absolute top-3 left-[26%] z-10 w-14 h-14 rounded-full gradient-gold flex items-center justify-center shadow-gold border-2 border-background">
+                    <span className="font-display font-black text-navy text-lg">{prog.id}</span>
                   </div>
                 </div>
 

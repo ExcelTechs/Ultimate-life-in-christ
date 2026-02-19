@@ -11,7 +11,11 @@ const navLinks = [
   { label: "Contact", href: "/contact", section: null },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  onPartnerClick?: () => void;
+}
+
+export default function Navbar({ onPartnerClick }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
@@ -26,7 +30,6 @@ export default function Navbar() {
   const handleNav = (href: string, section: string | null) => {
     setOpen(false);
     if (section) {
-      // If already on home, just scroll; otherwise navigate then scroll
       if (location.pathname === "/") {
         document.querySelector(section)?.scrollIntoView({ behavior: "smooth" });
       } else {
@@ -37,6 +40,16 @@ export default function Navbar() {
       }
     } else {
       navigate(href);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handlePartner = () => {
+    setOpen(false);
+    if (onPartnerClick) {
+      onPartnerClick();
+    } else {
+      navigate("/contact");
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
@@ -87,7 +100,7 @@ export default function Navbar() {
             </button>
           ))}
           <button
-            onClick={() => handleNav("/contact", null)}
+            onClick={handlePartner}
             className="px-5 py-2 bg-gold text-navy font-body font-bold text-sm rounded-full hover:bg-gold-light transition-colors duration-200 shadow-gold"
           >
             Partner With Us
@@ -117,7 +130,7 @@ export default function Navbar() {
               </button>
             ))}
             <button
-              onClick={() => handleNav("/contact", null)}
+              onClick={handlePartner}
               className="mt-2 px-5 py-2 bg-gold text-navy font-bold text-sm rounded-full"
             >
               Partner With Us

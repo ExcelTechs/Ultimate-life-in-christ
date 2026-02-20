@@ -7,7 +7,7 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center overflow-hidden pt-20"
+      className="relative min-h-screen flex items-center justify-start overflow-hidden pt-20"
       style={{
         background: "linear-gradient(120deg, hsl(330 100% 42%) 0%, hsl(310 80% 30%) 35%, hsl(285 65% 22%) 60%, hsl(240 30% 20%) 100%)",
       }}
@@ -22,8 +22,8 @@ export default function HeroSection() {
       />
 
       {/* Content — left aligned */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
-        <div className="max-w-2xl">
+      <div className="relative z-10 w-full max-w-7xl mx-0 px-6 md:px-12 lg:px-16">
+        <div className="max-w-2xl text-left">
           {/* Small label */}
           <p
             className="font-body text-white/70 text-xs md:text-sm tracking-[0.25em] uppercase mb-6 animate-fade-in"
@@ -37,10 +37,8 @@ export default function HeroSection() {
             style={{ fontSize: "clamp(2.5rem, 6vw, 5.5rem)", animationDelay: "0.1s" }}
           >
             The Ultimate Life<br />
-            <span className="text-white/90">in Christ</span><br />
-            <span style={{ fontSize: "clamp(1.4rem, 3.5vw, 3rem)" }} className="font-semibold text-white/80">
-              Ministries
-            </span>
+            <span className="text-white/90 whitespace-nowrap">in Christ ministries</span>
+           
           </h1>
 
           {/* Subtitle */}

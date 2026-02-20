@@ -7,69 +7,70 @@
 /* ============================================
    DESIGN SYSTEM — THE ULTIMATE LIFE IN CHRIST
    All colors are HSL. All tokens defined here.
+   Logo: Hot Magenta + Royal Purple palette
    ============================================ */
 
 @layer base {
   :root {
     /* Core Brand Colors */
-    --background: 40 30% 97%;
-    --foreground: 220 55% 10%;
+    --background: 300 20% 98%;
+    --foreground: 285 60% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 55% 10%;
+    --card-foreground: 285 60% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 55% 10%;
+    --popover-foreground: 285 60% 10%;
 
-    /* Deep Navy — authority, trust, faith */
-    --primary: 220 60% 14%;
-    --primary-foreground: 42 90% 88%;
+    /* Royal Purple — authority, faith, royalty */
+    --primary: 285 65% 22%;
+    --primary-foreground: 330 100% 95%;
 
-    /* Warm Gold — glory, light, divinity */
-    --gold: 42 88% 50%;
-    --gold-light: 42 88% 72%;
-    --gold-dark: 38 80% 36%;
+    /* Hot Magenta — energy, passion, glory */
+    --gold: 330 100% 52%;
+    --gold-light: 330 100% 70%;
+    --gold-dark: 320 90% 38%;
 
-    /* Warm Cream */
-    --secondary: 40 35% 93%;
-    --secondary-foreground: 220 60% 14%;
+    /* Light Lavender */
+    --secondary: 290 30% 94%;
+    --secondary-foreground: 285 65% 22%;
 
-    --muted: 40 20% 92%;
-    --muted-foreground: 220 20% 42%;
+    --muted: 290 15% 92%;
+    --muted-foreground: 285 20% 42%;
 
-    --accent: 42 88% 50%;
-    --accent-foreground: 220 60% 10%;
+    --accent: 330 100% 52%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 20% 84%;
-    --input: 220 20% 84%;
-    --ring: 42 88% 50%;
+    --border: 285 20% 84%;
+    --input: 285 20% 84%;
+    --ring: 330 100% 52%;
 
     --radius: 0.5rem;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(160deg, hsl(220 60% 10% / 0.85) 0%, hsl(220 55% 18% / 0.75) 50%, hsl(38 80% 36% / 0.55) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(42 88% 50%), hsl(38 80% 42%));
-    --gradient-navy: linear-gradient(135deg, hsl(220 60% 10%), hsl(220 55% 22%));
-    --gradient-section: linear-gradient(180deg, hsl(40 30% 97%) 0%, hsl(40 25% 94%) 100%);
+    --gradient-hero: linear-gradient(160deg, hsl(285 65% 12% / 0.88) 0%, hsl(285 55% 22% / 0.78) 50%, hsl(320 90% 38% / 0.55) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(330 100% 52%), hsl(320 90% 42%));
+    --gradient-navy: linear-gradient(135deg, hsl(285 65% 14%), hsl(285 55% 26%));
+    --gradient-section: linear-gradient(180deg, hsl(300 20% 98%) 0%, hsl(290 20% 95%) 100%);
 
     /* Shadows */
-    --shadow-sm: 0 2px 8px hsl(220 60% 10% / 0.08);
-    --shadow-md: 0 8px 24px hsl(220 60% 10% / 0.12);
-    --shadow-lg: 0 16px 48px hsl(220 60% 10% / 0.18);
-    --shadow-gold: 0 4px 20px hsl(42 88% 50% / 0.35);
+    --shadow-sm: 0 2px 8px hsl(285 60% 10% / 0.08);
+    --shadow-md: 0 8px 24px hsl(285 60% 10% / 0.12);
+    --shadow-lg: 0 16px 48px hsl(285 60% 10% / 0.18);
+    --shadow-gold: 0 4px 20px hsl(330 100% 52% / 0.40);
 
     /* Sidebar */
-    --sidebar-background: 220 60% 10%;
-    --sidebar-foreground: 40 35% 93%;
-    --sidebar-primary: 42 88% 50%;
-    --sidebar-primary-foreground: 220 60% 10%;
-    --sidebar-accent: 220 55% 18%;
-    --sidebar-accent-foreground: 40 35% 93%;
-    --sidebar-border: 220 40% 20%;
-    --sidebar-ring: 42 88% 50%;
+    --sidebar-background: 285 65% 14%;
+    --sidebar-foreground: 290 30% 94%;
+    --sidebar-primary: 330 100% 52%;
+    --sidebar-primary-foreground: 285 65% 14%;
+    --sidebar-accent: 285 55% 22%;
+    --sidebar-accent-foreground: 290 30% 94%;
+    --sidebar-border: 285 40% 24%;
+    --sidebar-ring: 330 100% 52%;
   }
 }
 
@@ -206,7 +207,7 @@
 }
 
 .gold-shimmer {
-  background: linear-gradient(90deg, hsl(42 88% 50%), hsl(42 88% 70%), hsl(42 88% 50%));
+  background: linear-gradient(90deg, hsl(330 100% 52%), hsl(330 100% 70%), hsl(285 65% 45%), hsl(330 100% 52%));
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

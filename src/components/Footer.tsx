@@ -1,4 +1,5 @@
-import { Cross, Facebook, Youtube, Twitter, Instagram } from "lucide-react";
+import { Facebook, Youtube, Twitter, Instagram } from "lucide-react";
+import logo from "../assets/logo.png";
 
 const quickLinks = [
   { label: "Home", href: "#home" },
@@ -28,13 +29,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center shadow-gold flex-shrink-0">
-                <Cross className="w-5 h-5 text-navy" />
-              </div>
-              <div>
+              <img src={logo} alt="The Ultimate Life in Christ Ministries" className="w-40 h-10 object-contain flex-shrink-0" />
+              {/* <div>
                 <p className="font-display text-gold font-bold text-sm leading-tight">THE ULTIMATE LIFE</p>
                 <p className="font-display text-primary-foreground/80 text-xs leading-tight">IN CHRIST MINISTRIES</p>
-              </div>
+              </div> */}
             </div>
             <p className="font-body text-primary-foreground/65 text-sm leading-relaxed mb-6">
               Transforming communities through faith, education, and sustainable development — empowering lives for God's glory.

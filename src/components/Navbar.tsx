@@ -4,11 +4,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import logoImg from "@/assets/logo.png";
 
 const navLinks = [
-  { label: "Home", href: "/", section: null },
-  { label: "About", href: "/", section: "#about" },
-  { label: "Our Work", href: "/", section: "#work" },
   { label: "Programs", href: "/programs", section: null },
-  { label: "Churches", href: "/", section: "#churches" },
+  { label: "About ministry", href: "/", section: "#about" },
+  { label: "Our Work", href: "/", section: "#work" },
   { label: "Blog", href: "/blog", section: null },
   { label: "Contact", href: "/contact", section: null },
 ];

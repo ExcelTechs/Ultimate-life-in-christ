@@ -9,6 +9,7 @@ const navLinks = [
   { label: "Our Work", href: "/", section: "#work" },
   { label: "Programs", href: "/programs", section: null },
   { label: "Churches", href: "/", section: "#churches" },
+  { label: "Blog", href: "/blog", section: null },
   { label: "Contact", href: "/contact", section: null },
 ];
 
@@ -66,7 +67,7 @@ export default function Navbar({ onPartnerClick }: NavbarProps) {
       {!scrolled ? (
         <div className="px-4 md:px-8 pt-4">
           <div
-            className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 rounded-full"
+            className="container mx-auto flex items-center justify-between px-4 py-3 rounded-full"
             style={{
               background: "hsl(var(--primary) / 0.18)",
               backdropFilter: "blur(16px)",
@@ -148,7 +149,7 @@ export default function Navbar({ onPartnerClick }: NavbarProps) {
       ) : (
         /* Scrolled — solid white bar */
         <div className="bg-white shadow-md transition-all duration-300">
-          <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+          <div className="container mx-auto px-6 py-3 flex items-center justify-between">
             {/* Logo */}
             <button onClick={() => handleNav("/", null)} className="flex items-center flex-shrink-0">
               <img src={logoImg} alt="The Ultimate Life In Christ Ministries" className="h-10 w-auto" />

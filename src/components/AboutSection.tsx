@@ -7,6 +7,33 @@ const stats = [
   { value: "20+", label: "Years of Ministry" },
 ];
 
+const team = [
+  {
+    name: "Bishop Emmanuel",
+    role: "Founder & Senior Pastor",
+    bio: "Visionary leader with over 20 years of ministry, pioneering church planting and community transformation across the region.",
+    initials: "BE",
+  },
+  {
+    name: "Pastor Sarah Moyo",
+    role: "Director of Education",
+    bio: "Passionate educator overseeing schools and vocational training programs that equip the next generation with purpose and skill.",
+    initials: "SM",
+  },
+  {
+    name: "Elder David Chirwa",
+    role: "Head of Agricultural Projects",
+    bio: "Leading sustainable farming initiatives that provide food security and economic empowerment for local families.",
+    initials: "DC",
+  },
+  {
+    name: "Minister Ruth Banda",
+    role: "Women's Ministry Leader",
+    bio: "Championing the spiritual and social empowerment of women through discipleship, skills training, and community outreach.",
+    initials: "RB",
+  },
+];
+
 export default function AboutSection() {
   return (
     <section id="about" className="py-24 bg-background">
@@ -75,6 +102,43 @@ export default function AboutSection() {
               <p className="font-body text-muted-foreground text-sm">{stat.label}</p>
             </div>
           ))}
+        </div>
+
+        {/* Our Team */}
+        <div className="mt-28">
+          <div className="text-center mb-14">
+            <p className="font-body text-gold tracking-widest uppercase text-sm font-bold mb-3">
+              The People Behind the Vision
+            </p>
+            <div className="section-divider" />
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground max-w-2xl mx-auto">
+              Meet Our Team
+            </h2>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {team.map((member) => (
+              <div key={member.name} className="card-ministry p-6 text-center group">
+                {/* Avatar */}
+                <div className="mx-auto mb-5 w-20 h-20 rounded-full gradient-navy flex items-center justify-center shadow-gold/30 shadow-lg">
+                  <span className="font-display font-black text-xl text-gold">
+                    {member.initials}
+                  </span>
+                </div>
+                {/* Name & Role */}
+                <h4 className="font-display font-bold text-foreground text-lg mb-1 group-hover:text-gold transition-colors">
+                  {member.name}
+                </h4>
+                <p className="font-body text-gold text-xs tracking-widest uppercase font-bold mb-3">
+                  {member.role}
+                </p>
+                <div className="h-px w-10 mx-auto bg-border mb-4" />
+                <p className="font-body text-muted-foreground text-sm leading-relaxed">
+                  {member.bio}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

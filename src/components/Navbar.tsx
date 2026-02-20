@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Cross } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import logoImg from "@/assets/logo.png";
 
 const navLinks = [
   { label: "Home", href: "/", section: null },
@@ -69,19 +70,9 @@ export default function Navbar({ onPartnerClick }: NavbarProps) {
         {/* Logo */}
         <button
           onClick={() => handleNav("/", null)}
-          className="flex items-center gap-3"
+          className="flex items-center"
         >
-          <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center shadow-gold flex-shrink-0">
-            <Cross className="w-5 h-5 text-navy" />
-          </div>
-          <div className="text-left">
-            <p className="font-display text-gold font-bold text-sm leading-tight">
-              THE ULTIMATE LIFE
-            </p>
-            <p className="font-display text-primary-foreground text-xs leading-tight">
-              IN CHRIST MINISTRIES
-            </p>
-          </div>
+          <img src={logoImg} alt="The Ultimate Life In Christ Ministries" className="h-10 w-auto" />
         </button>
 
         {/* Desktop Nav */}

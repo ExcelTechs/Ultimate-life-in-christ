@@ -44,8 +44,8 @@ export default function ContactSection() {
                     <p className="font-display font-semibold text-primary-foreground/90 mb-1">Address</p>
                     <p className="font-body text-primary-foreground/65 text-sm">
                       ULCM Headquarters<br />
-                      Ministry House, Main Road<br />
-                      [City, Country]
+                      Kyebando, Main Road<br />
+                      [Kampala, Uganda]
                     </p>
                   </div>
                 </div>
@@ -55,7 +55,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className="font-display font-semibold text-primary-foreground/90 mb-1">Phone</p>
-                    <p className="font-body text-primary-foreground/65 text-sm">+[Country Code] [Phone Number]</p>
+                    <p className="font-body text-primary-foreground/65 text-sm">+[256] [704133053]</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -64,7 +64,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className="font-display font-semibold text-primary-foreground/90 mb-1">Email</p>
-                    <p className="font-body text-primary-foreground/65 text-sm">info@ulcministries.org</p>
+                    <p className="font-body text-primary-foreground/65 text-sm">ulinCministries@gmail.com</p>
                   </div>
                 </div>
               </div>

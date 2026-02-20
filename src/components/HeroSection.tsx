@@ -1,4 +1,4 @@
-import heroChurch from "@/assets/hero-church.jpg";
+import { ArrowRight } from "lucide-react";
 
 export default function HeroSection() {
   const scrollTo = (id: string) =>
@@ -7,73 +7,73 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden pt-20"
+      style={{
+        background: "linear-gradient(120deg, hsl(330 100% 42%) 0%, hsl(310 80% 30%) 35%, hsl(285 65% 22%) 60%, hsl(240 30% 20%) 100%)",
+      }}
     >
-      {/* Background image */}
+      {/* Subtle noise/texture overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroChurch})` }}
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
+          backgroundSize: "200px 200px",
+        }}
       />
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 gradient-hero" />
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-        {/* Tag */}
-        <div className="inline-flex items-center gap-2 border border-gold/50 rounded-full px-4 py-1.5 mb-8 animate-fade-in">
-          <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
-          <span className="font-body text-gold-light text-sm tracking-widest uppercase">
+      {/* Content — left aligned */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+        <div className="max-w-2xl">
+          {/* Small label */}
+          <p
+            className="font-body text-white/70 text-xs md:text-sm tracking-[0.25em] uppercase mb-6 animate-fade-in"
+          >
             Building the Kingdom of God
-          </span>
-        </div>
+          </p>
 
-        {/* Main title */}
-        <h1
-          className="font-display text-5xl md:text-7xl font-black leading-tight mb-6 animate-fade-up"
-          style={{ animationDelay: "0.1s" }}
-        >
-          <span className="gold-shimmer">THE ULTIMATE LIFE</span>
-          <br />
-          <span className="text-primary-foreground">IN CHRIST</span>
-          <br />
-          <span className="text-primary-foreground text-3xl md:text-4xl font-semibold">
-            MINISTRIES
-          </span>
-        </h1>
-
-        {/* Tagline */}
-        <p
-          className="font-body text-xl md:text-2xl text-primary-foreground/80 max-w-2xl mx-auto mb-10 animate-fade-up"
-          style={{ animationDelay: "0.25s" }}
-        >
-          Transforming communities through faith, education, and sustainable development — one life at a time.
-        </p>
-
-        {/* CTA Buttons */}
-        <div
-          className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up"
-          style={{ animationDelay: "0.4s" }}
-        >
-          <button
-            onClick={() => scrollTo("#about")}
-            className="px-8 py-4 gradient-gold text-navy font-display font-bold text-lg rounded-full shadow-gold hover:brightness-110 transition-all duration-200"
+          {/* Main headline */}
+          <h1
+            className="font-display font-black text-white leading-[1.05] mb-6 animate-fade-up"
+            style={{ fontSize: "clamp(2.5rem, 6vw, 5.5rem)", animationDelay: "0.1s" }}
           >
-            Discover Our Mission
-          </button>
-          <button
-            onClick={() => scrollTo("#contact")}
-            className="px-8 py-4 border-2 border-gold text-gold font-display font-semibold text-lg rounded-full hover:bg-gold hover:text-navy transition-all duration-200"
-          >
-            Join Us Today
-          </button>
-        </div>
-      </div>
+            The Ultimate Life<br />
+            <span className="text-white/90">in Christ</span><br />
+            <span style={{ fontSize: "clamp(1.4rem, 3.5vw, 3rem)" }} className="font-semibold text-white/80">
+              Ministries
+            </span>
+          </h1>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-        <div className="w-0.5 h-10 bg-gold/50 rounded-full" />
-        <span className="font-body text-gold/60 text-xs tracking-widest uppercase">Scroll</span>
+          {/* Subtitle */}
+          <p
+            className="font-body text-white/75 text-base md:text-lg leading-relaxed max-w-lg mb-10 animate-fade-up"
+            style={{ animationDelay: "0.25s" }}
+          >
+            Transforming communities through faith, education, and sustainable
+            development — one life at a time.
+          </p>
+
+          {/* CTA */}
+          <div
+            className="flex flex-col sm:flex-row gap-4 animate-fade-up"
+            style={{ animationDelay: "0.4s" }}
+          >
+            <button
+              onClick={() => scrollTo("#about")}
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-foreground font-display font-bold text-base rounded-sm hover:bg-white/90 transition-all duration-200"
+            >
+              Discover Our Mission
+              <ArrowRight className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => scrollTo("#contact")}
+              className="inline-flex items-center gap-2 px-8 py-4 border border-white/40 text-white font-display font-semibold text-base rounded-sm hover:border-white/70 hover:bg-white/10 transition-all duration-200"
+            >
+              Join Us Today
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
+

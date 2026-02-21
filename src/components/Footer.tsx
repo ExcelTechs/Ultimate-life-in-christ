@@ -2,12 +2,12 @@ import { Facebook, Youtube, Twitter, Instagram } from "lucide-react";
 import logo from "../assets/logo.png";
 
 const quickLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About Us", href: "#about" },
-  { label: "Our Work", href: "#work" },
-  { label: "Programs", href: "#programs" },
-  { label: "Churches & Centres", href: "#churches" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Our Work", href: "/our-work" },
+  { label: "Programs", href: "/programs" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const ministryAreas = [
@@ -60,10 +60,6 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" });
-                    }}
                     className="font-body text-sm text-primary-foreground/65 hover:text-gold transition-colors"
                   >
                     {link.label}

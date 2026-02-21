@@ -5,8 +5,8 @@ import logoImg from "@/assets/logo.png";
 
 const navLinks = [
   { label: "Programs", href: "/programs", section: null },
-  { label: "About ministry", href: "/", section: "#about" },
-  { label: "Our Work", href: "/", section: "#work" },
+  { label: "About Ministry", href: "/about", section: null },
+  { label: "Our Work", href: "/our-work", section: null },
   { label: "Blog", href: "/blog", section: null },
   { label: "Contact", href: "/contact", section: null },
 ];

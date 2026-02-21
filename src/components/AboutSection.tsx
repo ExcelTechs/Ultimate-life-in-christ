@@ -1,4 +1,6 @@
+import { useState } from "react";
 import communityWorship from "@/assets/community-worship.jpg";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const stats = [
   { value: "50+", label: "Churches Established" },
@@ -35,14 +37,19 @@ const team = [
 ];
 
 export default function AboutSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const prev = () => setActiveIndex((i) => (i - 1 + team.length) % team.length);
+  const next = () => setActiveIndex((i) => (i + 1) % team.length);
+
+  const getCardIndex = (offset: number) => (activeIndex + offset + team.length) % team.length;
+
   return (
     <section id="about" className="py-24 bg-background">
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className="font-body text-gold tracking-widest uppercase text-sm font-bold mb-3">
-            Who We Are
-          </p>
+          <p className="font-body text-gold tracking-widest uppercase text-sm font-bold mb-3">Who We Are</p>
           <div className="section-divider" />
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground max-w-3xl mx-auto">
             A Ministry Built on Faith, Purpose & Community
@@ -53,13 +60,8 @@ export default function AboutSection() {
           {/* Image */}
           <div className="relative">
             <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_hsl(220_60%_10%/0.2)]">
-              <img
-                src={communityWorship}
-                alt="Community worship gathering"
-                className="w-full h-[440px] object-cover"
-              />
+              <img src={communityWorship} alt="Community worship gathering" className="w-full h-[440px] object-cover" />
             </div>
-            {/* Badge overlay */}
             <div className="absolute -bottom-6 -right-6 gradient-navy rounded-2xl px-6 py-5 shadow-lg">
               <p className="font-display text-gold text-3xl font-black">20+</p>
               <p className="font-body text-primary-foreground/80 text-sm">Years of Service</p>
@@ -68,79 +70,129 @@ export default function AboutSection() {
 
           {/* Text */}
           <div>
-            <h3 className="font-display text-2xl font-bold text-foreground mb-4">
-              Our Vision & Mission
-            </h3>
+            <h3 className="font-display text-2xl font-bold text-foreground mb-4">Our Vision & Mission</h3>
             <p className="font-body text-muted-foreground text-lg mb-6 leading-relaxed">
               <strong className="text-foreground">The Ultimate Life In Christ Ministries</strong> is a Spirit-led organization committed to the holistic transformation of individuals and communities through the Gospel of Jesus Christ.
             </p>
             <p className="font-body text-muted-foreground mb-6 leading-relaxed">
-              We establish local churches, coordinate tributary churches and centres, and generate life-changing community projects — from farming enterprises to schools and vocational training institutions — all aimed at empowering people to live out the fullness of life in Christ.
+              We establish local churches, coordinate tributary churches and centres, and generate life-changing community projects — from farming enterprises to schools and vocational training institutions.
             </p>
             <p className="font-body text-muted-foreground mb-8 leading-relaxed">
               Our mandate covers skills training, leadership development, entrepreneurship, and management — equipping the next generation to lead with excellence and integrity.
             </p>
-
             <div className="flex items-center gap-4">
               <div className="h-px flex-1 bg-border" />
-              <span className="font-display text-gold italic text-sm">
-                "I am the way, the truth, and the life" — John 14:6
-              </span>
+              <span className="font-display text-gold italic text-sm">"I am the way, the truth, and the life" — John 14:6</span>
               <div className="h-px flex-1 bg-border" />
             </div>
           </div>
         </div>
 
-        {/* Stats bar */}
+        {/* Stats */}
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="text-center p-8 card-ministry border-gold/10"
-            >
+            <div key={stat.label} className="text-center p-8 card-ministry border-gold/10">
               <p className="font-display text-4xl font-black text-gold mb-2">{stat.value}</p>
               <p className="font-body text-muted-foreground text-sm">{stat.label}</p>
             </div>
           ))}
         </div>
 
-        {/* Our Team */}
+        {/* Our Team — Carousel */}
         <div className="mt-28">
           <div className="text-center mb-14">
-            <p className="font-body text-gold tracking-widest uppercase text-sm font-bold mb-3">
-              The People Behind the Vision
-            </p>
+            <p className="font-body text-gold tracking-widest uppercase text-sm font-bold mb-3">The People Behind the Vision</p>
             <div className="section-divider" />
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground max-w-2xl mx-auto">
-              Meet Our Team
-            </h2>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground max-w-2xl mx-auto">Meet Our Team</h2>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member) => (
-              <div key={member.name} className="card-ministry p-6 text-center group">
-                {/* Avatar */}
-                <div className="mx-auto mb-5 w-20 h-20 rounded-full gradient-navy flex items-center justify-center shadow-gold/30 shadow-lg">
-                  <span className="font-display font-black text-xl text-gold">
-                    {member.initials}
-                  </span>
-                </div>
-                {/* Name & Role */}
-                <h4 className="font-display font-bold text-foreground text-lg mb-1 group-hover:text-gold transition-colors">
-                  {member.name}
-                </h4>
-                <p className="font-body text-gold text-xs tracking-widest uppercase font-bold mb-3">
-                  {member.role}
-                </p>
-                <div className="h-px w-10 mx-auto bg-border mb-4" />
-                <p className="font-body text-muted-foreground text-sm leading-relaxed">
-                  {member.bio}
-                </p>
+          {/* 3D Carousel */}
+          <div className="relative py-8">
+            <div className="flex items-center justify-center gap-4 md:gap-0 h-[420px] md:h-[460px] relative">
+              {/* Left card */}
+              <div
+                className="absolute left-[5%] md:left-[12%] w-56 md:w-64 transition-all duration-500 ease-in-out cursor-pointer z-10 opacity-60 scale-[0.85]"
+                style={{ transform: "perspective(1000px) rotateY(15deg) scale(0.85)" }}
+                onClick={prev}
+              >
+                <TeamCard member={team[getCardIndex(-1)]} compact />
               </div>
-            ))}
+
+              {/* Center card — active */}
+              <div className="relative z-20 w-72 md:w-80 transition-all duration-500 ease-in-out">
+                <TeamCard member={team[activeIndex]} />
+              </div>
+
+              {/* Right card */}
+              <div
+                className="absolute right-[5%] md:right-[12%] w-56 md:w-64 transition-all duration-500 ease-in-out cursor-pointer z-10 opacity-60 scale-[0.85]"
+                style={{ transform: "perspective(1000px) rotateY(-15deg) scale(0.85)" }}
+                onClick={next}
+              >
+                <TeamCard member={team[getCardIndex(1)]} compact />
+              </div>
+            </div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={prev}
+              className="absolute left-0 md:left-[4%] top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-background border border-border shadow-md flex items-center justify-center hover:border-gold hover:text-gold transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={next}
+              className="absolute right-0 md:right-[4%] top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-background border border-border shadow-md flex items-center justify-center hover:border-gold hover:text-gold transition-colors"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+
+            {/* Dots */}
+            <div className="flex items-center justify-center gap-2 mt-8">
+              {team.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveIndex(i)}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                    i === activeIndex ? "bg-gold w-8" : "bg-border hover:bg-gold/40"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function TeamCard({ member, compact }: { member: typeof team[0]; compact?: boolean }) {
+  return (
+    <div className={`rounded-2xl overflow-hidden shadow-lg border border-border bg-card ${compact ? "" : "shadow-xl"}`}>
+      {/* Avatar area with gradient bg */}
+      <div
+        className={`flex items-center justify-center ${compact ? "h-44" : "h-56"}`}
+        style={{ background: "linear-gradient(135deg, hsl(285 65% 22%), hsl(330 100% 42%))" }}
+      >
+        <div className={`rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center border border-white/20 ${compact ? "w-20 h-20" : "w-28 h-28"}`}>
+          <span className={`font-display font-black text-white ${compact ? "text-2xl" : "text-4xl"}`}>
+            {member.initials}
+          </span>
+        </div>
+      </div>
+      {/* Info */}
+      <div className={`text-center ${compact ? "p-4" : "p-6"}`}>
+        <h4 className={`font-display font-bold text-foreground ${compact ? "text-base" : "text-xl"} mb-1`}>
+          {member.name}
+        </h4>
+        <p className="font-body text-gold text-xs tracking-widest uppercase font-bold mb-3">{member.role}</p>
+        {!compact && (
+          <>
+            <div className="h-px w-10 mx-auto bg-border mb-3" />
+            <p className="font-body text-muted-foreground text-sm leading-relaxed">{member.bio}</p>
+          </>
+        )}
+      </div>
+    </div>
   );
 }

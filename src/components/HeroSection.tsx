@@ -28,7 +28,7 @@ export default function HeroSection() {
           <p
             className="font-body text-white/70 text-xs md:text-sm tracking-[0.25em] uppercase mb-6 animate-fade-in"
           >
-            Building the Kingdom of God
+            {/* Building the Kingdom of God */}
           </p>
 
           {/* Main headline */}
@@ -42,13 +42,18 @@ export default function HeroSection() {
           </h1>
 
           {/* Subtitle */}
-          <p
-            className="font-body text-white/75 text-base md:text-lg leading-relaxed max-w-lg mb-10 animate-fade-up"
+            <p
+            className="font-display font-bold text-white/90 text-lg md:text-[35px] leading-relaxed max-w-lg mb-2 animate-fade-up"
             style={{ animationDelay: "0.25s" }}
-          >
-            Transforming communities through faith, education, and sustainable
-            development — one life at a time.
-          </p>
+            >
+            Our Vision
+            </p>
+            <p
+            className="font-body text-white/75 text-base md:text-lg leading-relaxed max-w-lg mb-10 animate-fade-up"
+            style={{ animationDelay: "0.3s" }}
+            >
+            Empowering people, changing lives
+            </p>
 
           {/* CTA */}
           <div

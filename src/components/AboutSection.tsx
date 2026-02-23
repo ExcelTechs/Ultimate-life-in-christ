@@ -1,6 +1,12 @@
 import { useState } from "react";
 import communityWorship from "@/assets/community-worship.jpg";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import pastorJames from "@/assets/pastor-james.jpg";
+import pastorGrace from "@/assets/pastor-grace.jpg";
+import pastorSamuel from "@/assets/pastor-samuel.jpg";
+import pastorEsther from "@/assets/pastor-esther.jpg";
+import pastorJohn from "@/assets/pastor-john.jpg";
+import pastorMary from "@/assets/pastor-mary.jpg";
 
 const stats = [
   { value: "50+", label: "Churches Established" },
@@ -37,12 +43,12 @@ const team = [
 ];
 
 const pastoralTeam = [
-  { name: "Pastor James Phiri", role: "Senior Pastor", initials: "JP", bg: "linear-gradient(135deg, hsl(220 30% 35%), hsl(220 20% 50%))" },
-  { name: "Pastor Grace Tembo", role: "Worship Director", initials: "GT", bg: "linear-gradient(135deg, hsl(30 40% 55%), hsl(25 35% 65%))" },
-  { name: "Pastor Samuel Mwale", role: "Youth Ministry", initials: "SM", bg: "linear-gradient(135deg, hsl(285 40% 30%), hsl(310 50% 40%))" },
-  { name: "Pastor Esther Zulu", role: "Women's Pastor", initials: "EZ", bg: "linear-gradient(135deg, hsl(340 35% 45%), hsl(350 40% 55%))" },
-  { name: "Pastor John Nkomo", role: "Outreach Coordinator", initials: "JN", bg: "linear-gradient(135deg, hsl(200 30% 40%), hsl(190 25% 50%))" },
-  { name: "Pastor Mary Lungu", role: "Children's Ministry", initials: "ML", bg: "linear-gradient(135deg, hsl(35 50% 50%), hsl(40 45% 60%))" },
+  { name: "Pastor James Phiri", role: "Senior Pastor", image: pastorJames },
+  { name: "Pastor Grace Tembo", role: "Worship Director", image: pastorGrace },
+  { name: "Pastor Samuel Mwale", role: "Youth Ministry", image: pastorSamuel },
+  { name: "Pastor Esther Zulu", role: "Women's Pastor", image: pastorEsther },
+  { name: "Pastor John Nkomo", role: "Outreach Coordinator", image: pastorJohn },
+  { name: "Pastor Mary Lungu", role: "Children's Ministry", image: pastorMary },
 ];
 
 export default function AboutSection() {
@@ -179,23 +185,19 @@ export default function AboutSection() {
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center items-end gap-6 md:gap-5 max-w-5xl mx-auto">
-            {pastoralTeam.map((member, i) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-5">
+            {pastoralTeam.map((member) => (
               <div
                 key={member.name}
-                className="w-36 md:w-44 transition-all duration-500 hover:-translate-y-2"
-                style={{ marginBottom: `${[0, 40, 16, 56, 8, 48][i % 6]}px` }}
+                className="group transition-all duration-500 hover:-translate-y-2"
               >
                 <div className="rounded-2xl overflow-hidden shadow-lg border border-border relative aspect-[3/4]">
-                  <div
-                    className="absolute inset-0 flex items-center justify-center"
-                    style={{ background: member.bg }}
-                  >
-                    <span className="font-display font-black text-white/80 text-5xl md:text-6xl select-none">
-                      {member.initials}
-                    </span>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 via-black/30 to-transparent pt-10">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 via-black/30 to-transparent pt-12">
                     <h4 className="font-display font-bold text-white text-sm leading-tight">{member.name}</h4>
                     <p className="font-body text-white/75 text-xs">{member.role}</p>
                   </div>

@@ -11,13 +11,12 @@ const quickLinks = [
 ];
 
 const ministryAreas = [
-  "Church Establishment",
-  "Farming Projects",
-  "Schools & Education",
-  "Skills Training",
+  "Outreach Ministry Programmes",
+  "Education Support To Volunarable Children",
+  "Feeding The Needy",
   "Leadership Development",
-  "Entrepreneurship Academy",
-  "Church Network Coordination",
+  "Clean Water Access",
+  "Church Planting & Coordination",
 ];
 
 export default function Footer() {

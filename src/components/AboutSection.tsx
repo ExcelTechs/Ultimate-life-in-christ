@@ -36,6 +36,15 @@ const team = [
   },
 ];
 
+const pastoralTeam = [
+  { name: "Pastor James Phiri", role: "Senior Pastor", initials: "JP", bg: "linear-gradient(135deg, hsl(220 30% 35%), hsl(220 20% 50%))" },
+  { name: "Pastor Grace Tembo", role: "Worship Director", initials: "GT", bg: "linear-gradient(135deg, hsl(30 40% 55%), hsl(25 35% 65%))" },
+  { name: "Pastor Samuel Mwale", role: "Youth Ministry", initials: "SM", bg: "linear-gradient(135deg, hsl(285 40% 30%), hsl(310 50% 40%))" },
+  { name: "Pastor Esther Zulu", role: "Women's Pastor", initials: "EZ", bg: "linear-gradient(135deg, hsl(340 35% 45%), hsl(350 40% 55%))" },
+  { name: "Pastor John Nkomo", role: "Outreach Coordinator", initials: "JN", bg: "linear-gradient(135deg, hsl(200 30% 40%), hsl(190 25% 50%))" },
+  { name: "Pastor Mary Lungu", role: "Children's Ministry", initials: "ML", bg: "linear-gradient(135deg, hsl(35 50% 50%), hsl(40 45% 60%))" },
+];
+
 export default function AboutSection() {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -109,7 +118,6 @@ export default function AboutSection() {
           {/* 3D Carousel */}
           <div className="relative py-8">
             <div className="flex items-center justify-center gap-4 md:gap-0 h-[420px] md:h-[460px] relative">
-              {/* Left card */}
               <div
                 className="absolute left-[5%] md:left-[12%] w-56 md:w-64 transition-all duration-500 ease-in-out cursor-pointer z-10 opacity-60 scale-[0.85]"
                 style={{ transform: "perspective(1000px) rotateY(15deg) scale(0.85)" }}
@@ -117,13 +125,9 @@ export default function AboutSection() {
               >
                 <TeamCard member={team[getCardIndex(-1)]} compact />
               </div>
-
-              {/* Center card — active */}
               <div className="relative z-20 w-72 md:w-80 transition-all duration-500 ease-in-out">
                 <TeamCard member={team[activeIndex]} />
               </div>
-
-              {/* Right card */}
               <div
                 className="absolute right-[5%] md:right-[12%] w-56 md:w-64 transition-all duration-500 ease-in-out cursor-pointer z-10 opacity-60 scale-[0.85]"
                 style={{ transform: "perspective(1000px) rotateY(-15deg) scale(0.85)" }}
@@ -133,7 +137,6 @@ export default function AboutSection() {
               </div>
             </div>
 
-            {/* Navigation Arrows */}
             <button
               onClick={prev}
               className="absolute left-0 md:left-[4%] top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-background border border-border shadow-md flex items-center justify-center hover:border-gold hover:text-gold transition-colors"
@@ -147,7 +150,6 @@ export default function AboutSection() {
               <ChevronRight className="w-5 h-5" />
             </button>
 
-            {/* Dots */}
             <div className="flex items-center justify-center gap-2 mt-8">
               {team.map((_, i) => (
                 <button
@@ -161,6 +163,47 @@ export default function AboutSection() {
             </div>
           </div>
         </div>
+
+        {/* Pastoral Team — Staggered Grid */}
+        <div className="mt-28">
+          <div className="text-center mb-14">
+            <p className="font-body text-gold tracking-widest uppercase text-sm font-bold mb-3">Serving With Purpose</p>
+            <div className="section-divider" />
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground max-w-3xl mx-auto">
+              Life In Christ Pastoral Team
+            </h2>
+            <p className="font-body text-muted-foreground text-lg max-w-2xl mx-auto mt-5 leading-relaxed">
+              Our pastoral team is the heartbeat of the ministry — men and women called and anointed to shepherd, 
+              disciple, and walk alongside every believer on their journey of faith. Together, they lead with 
+              compassion, integrity, and an unwavering commitment to the Gospel.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center items-end gap-6 md:gap-5 max-w-5xl mx-auto">
+            {pastoralTeam.map((member, i) => (
+              <div
+                key={member.name}
+                className="w-36 md:w-44 transition-all duration-500 hover:-translate-y-2"
+                style={{ marginBottom: `${[0, 40, 16, 56, 8, 48][i % 6]}px` }}
+              >
+                <div className="rounded-2xl overflow-hidden shadow-lg border border-border relative aspect-[3/4]">
+                  <div
+                    className="absolute inset-0 flex items-center justify-center"
+                    style={{ background: member.bg }}
+                  >
+                    <span className="font-display font-black text-white/80 text-5xl md:text-6xl select-none">
+                      {member.initials}
+                    </span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 via-black/30 to-transparent pt-10">
+                    <h4 className="font-display font-bold text-white text-sm leading-tight">{member.name}</h4>
+                    <p className="font-body text-white/75 text-xs">{member.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -169,7 +212,6 @@ export default function AboutSection() {
 function TeamCard({ member, compact }: { member: typeof team[0]; compact?: boolean }) {
   return (
     <div className={`rounded-2xl overflow-hidden shadow-lg border border-border bg-card ${compact ? "" : "shadow-xl"}`}>
-      {/* Avatar area with gradient bg */}
       <div
         className={`flex items-center justify-center ${compact ? "h-44" : "h-56"}`}
         style={{ background: "linear-gradient(135deg, hsl(285 65% 22%), hsl(330 100% 42%))" }}
@@ -180,7 +222,6 @@ function TeamCard({ member, compact }: { member: typeof team[0]; compact?: boole
           </span>
         </div>
       </div>
-      {/* Info */}
       <div className={`text-center ${compact ? "p-4" : "p-6"}`}>
         <h4 className={`font-display font-bold text-foreground ${compact ? "text-base" : "text-xl"} mb-1`}>
           {member.name}

@@ -7,6 +7,10 @@ import pastorSamuel from "@/assets/pastor-samuel.jpg";
 import pastorEsther from "@/assets/pastor-esther.jpg";
 import pastorJohn from "@/assets/pastor-john.jpg";
 import pastorMary from "@/assets/pastor-mary.jpg";
+import teamBishop from "@/assets/team-bishop.jpg";
+import teamSarah from "@/assets/team-sarah.jpg";
+import teamDavid from "@/assets/team-david.jpg";
+import teamRuth from "@/assets/team-ruth.jpg";
 
 const stats = [
   { value: "50+", label: "Churches Established" },
@@ -20,25 +24,25 @@ const team = [
     name: "Bishop Emmanuel",
     role: "Founder & Senior Pastor",
     bio: "Visionary leader with over 20 years of ministry, pioneering church planting and community transformation across the region.",
-    initials: "BE",
+    image: teamBishop,
   },
   {
     name: "Pastor Sarah Moyo",
     role: "Director of Education",
     bio: "Passionate educator overseeing schools and vocational training programs that equip the next generation with purpose and skill.",
-    initials: "SM",
+    image: teamSarah,
   },
   {
     name: "Elder David Chirwa",
     role: "Head of Agricultural Projects",
     bio: "Leading sustainable farming initiatives that provide food security and economic empowerment for local families.",
-    initials: "DC",
+    image: teamDavid,
   },
   {
     name: "Minister Ruth Banda",
     role: "Women's Ministry Leader",
     bio: "Championing the spiritual and social empowerment of women through discipleship, skills training, and community outreach.",
-    initials: "RB",
+    image: teamRuth,
   },
 ];
 
@@ -214,15 +218,12 @@ export default function AboutSection() {
 function TeamCard({ member, compact }: { member: typeof team[0]; compact?: boolean }) {
   return (
     <div className={`rounded-2xl overflow-hidden shadow-lg border border-border bg-card ${compact ? "" : "shadow-xl"}`}>
-      <div
-        className={`flex items-center justify-center ${compact ? "h-44" : "h-56"}`}
-        style={{ background: "linear-gradient(135deg, hsl(285 65% 22%), hsl(330 100% 42%))" }}
-      >
-        <div className={`rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center border border-white/20 ${compact ? "w-20 h-20" : "w-28 h-28"}`}>
-          <span className={`font-display font-black text-white ${compact ? "text-2xl" : "text-4xl"}`}>
-            {member.initials}
-          </span>
-        </div>
+      <div className={`relative ${compact ? "h-44" : "h-56"}`}>
+        <img
+          src={member.image}
+          alt={member.name}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
       </div>
       <div className={`text-center ${compact ? "p-4" : "p-6"}`}>
         <h4 className={`font-display font-bold text-foreground ${compact ? "text-base" : "text-xl"} mb-1`}>

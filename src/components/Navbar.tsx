@@ -2,9 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import { Menu, X, ArrowUpRight, ArrowRight } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logoImg from "@/assets/logo.png";
+import PartnerSheet from "@/components/PartnerSheet";
 
 import heroChurch from "@/assets/hero-church.jpg";
 import farmingProject from "@/assets/farming-project.jpg";
+import progSkills from "@/assets/prog-skills.jpg";
+import progLeadership from "@/assets/prog-leadership.jpg";
 
 const navLinks = [
   { label: "Programs", href: "/programs", section: null },
@@ -28,11 +31,43 @@ const blogHighlights = [
   { title: "Faith & Farming: Feeding Families", image: farmingProject, href: "/blog/2" },
 ];
 
+const programDropdownItems = [
+  { label: "Skills Training", desc: "Vocational & technical skills", href: "/programs" },
+  { label: "Leadership Development", desc: "Raising Kingdom leaders", href: "/programs" },
+  { label: "Entrepreneurship", desc: "Business & micro-enterprise", href: "/programs" },
+  { label: "Farming Co-operative", desc: "Sustainable agriculture", href: "/programs" },
+  { label: "Church Planting", desc: "Establishing new churches", href: "/programs" },
+  { label: "Management Training", desc: "Organizational excellence", href: "/programs" },
+];
+
+const programHighlights = [
+  { title: "Skills Training: Empowering Hands for the Kingdom", image: progSkills, href: "/programs" },
+  { title: "Leadership Development: Raising Kingdom Leaders", image: progLeadership, href: "/programs" },
+];
+
 interface NavbarProps {
   onPartnerClick?: () => void;
 }
 
-function BlogDropdown({ onNavigate, variant }: { onNavigate: (href: string) => void; variant: "light" | "dark" }) {
+function MegaDropdown({
+  items,
+  highlights,
+  onNavigate,
+  variant,
+  categoryTitle,
+  highlightTitle,
+  viewAllHref,
+  viewAllLabel,
+}: {
+  items: { label: string; desc: string; href: string }[];
+  highlights: { title: string; image: string; href: string }[];
+  onNavigate: (href: string) => void;
+  variant: "light" | "dark";
+  categoryTitle: string;
+  highlightTitle: string;
+  viewAllHref: string;
+  viewAllLabel: string;
+}) {
   return (
     <div
       className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50"
@@ -51,20 +86,17 @@ function BlogDropdown({ onNavigate, variant }: { onNavigate: (href: string) => v
         }}
       >
         <div className="grid grid-cols-[1fr_1fr] gap-0">
-          {/* Left — Categories */}
           <div className="p-5">
-            <p className={`font-body text-xs tracking-widest uppercase font-bold mb-3 ${variant === "dark" ? "text-gold" : "text-gold"}`}>
-              Categories
+            <p className="font-body text-xs tracking-widest uppercase font-bold mb-3 text-gold">
+              {categoryTitle}
             </p>
             <div className="space-y-0.5">
-              {blogDropdownItems.map((item) => (
+              {items.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => onNavigate(item.href)}
                   className={`w-full text-left px-3 py-2.5 rounded-lg transition-colors group ${
-                    variant === "dark"
-                      ? "hover:bg-white/10"
-                      : "hover:bg-muted"
+                    variant === "dark" ? "hover:bg-white/10" : "hover:bg-muted"
                   }`}
                 >
                   <p className={`font-display font-semibold text-sm ${variant === "dark" ? "text-white/90" : "text-foreground"}`}>
@@ -78,7 +110,6 @@ function BlogDropdown({ onNavigate, variant }: { onNavigate: (href: string) => v
             </div>
           </div>
 
-          {/* Right — Featured posts with images */}
           <div
             className="p-5"
             style={{
@@ -87,11 +118,11 @@ function BlogDropdown({ onNavigate, variant }: { onNavigate: (href: string) => v
                 : "hsl(var(--muted))",
             }}
           >
-            <p className={`font-body text-xs tracking-widest uppercase font-bold mb-3 ${variant === "dark" ? "text-gold" : "text-gold"}`}>
-              Featured
+            <p className="font-body text-xs tracking-widest uppercase font-bold mb-3 text-gold">
+              {highlightTitle}
             </p>
             <div className="space-y-3">
-              {blogHighlights.map((post) => (
+              {highlights.map((post) => (
                 <button
                   key={post.title}
                   onClick={() => onNavigate(post.href)}
@@ -108,10 +139,10 @@ function BlogDropdown({ onNavigate, variant }: { onNavigate: (href: string) => v
               ))}
             </div>
             <button
-              onClick={() => onNavigate("/blog")}
+              onClick={() => onNavigate(viewAllHref)}
               className="mt-3 w-full flex items-center justify-center gap-1.5 py-2 rounded-lg font-body text-xs font-bold text-gold hover:underline transition-colors"
             >
-              View All Posts <ArrowRight className="w-3 h-3" />
+              {viewAllLabel} <ArrowRight className="w-3 h-3" />
             </button>
           </div>
         </div>
@@ -124,7 +155,10 @@ export default function Navbar({ onPartnerClick }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [blogHover, setBlogHover] = useState(false);
+  const [programsHover, setProgramsHover] = useState(false);
+  const [partnerOpen, setPartnerOpen] = useState(false);
   const blogTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const programsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -137,6 +171,7 @@ export default function Navbar({ onPartnerClick }: NavbarProps) {
   const handleNav = (href: string, section: string | null) => {
     setOpen(false);
     setBlogHover(false);
+    setProgramsHover(false);
     if (section) {
       if (location.pathname === "/") {
         document.querySelector(section)?.scrollIntoView({ behavior: "smooth" });
@@ -157,8 +192,7 @@ export default function Navbar({ onPartnerClick }: NavbarProps) {
     if (onPartnerClick) {
       onPartnerClick();
     } else {
-      navigate("/contact");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      setPartnerOpen(true);
     }
   };
 
@@ -175,180 +209,198 @@ export default function Navbar({ onPartnerClick }: NavbarProps) {
     blogTimeoutRef.current = setTimeout(() => setBlogHover(false), 200);
   };
 
+  const onProgramsEnter = () => {
+    if (programsTimeoutRef.current) clearTimeout(programsTimeoutRef.current);
+    setProgramsHover(true);
+  };
+  const onProgramsLeave = () => {
+    programsTimeoutRef.current = setTimeout(() => setProgramsHover(false), 200);
+  };
+
   const renderNavButton = (link: typeof navLinks[0], variant: "light" | "dark") => {
+    const baseClass = variant === "dark"
+      ? "font-body text-sm px-4 py-1.5 rounded-full transition-all duration-200 tracking-wide text-white/85 hover:text-white hover:bg-white/15"
+      : `font-body text-sm transition-colors duration-200 tracking-wide ${
+          isActive(link.href, link.section)
+            ? "text-gold font-semibold"
+            : "text-foreground/70 hover:text-foreground"
+        }`;
+
     if (link.label === "Blog") {
       return (
-        <div
-          key={link.label}
-          className="relative"
-          onMouseEnter={onBlogEnter}
-          onMouseLeave={onBlogLeave}
-        >
-          <button
-            onClick={() => handleNav(link.href, link.section)}
-            className={
-              variant === "dark"
-                ? "font-body text-sm px-4 py-1.5 rounded-full transition-all duration-200 tracking-wide text-white/85 hover:text-white hover:bg-white/15"
-                : `font-body text-sm transition-colors duration-200 tracking-wide ${
-                    isActive(link.href, link.section)
-                      ? "text-gold font-semibold"
-                      : "text-foreground/70 hover:text-foreground"
-                  }`
-            }
-          >
+        <div key={link.label} className="relative" onMouseEnter={onBlogEnter} onMouseLeave={onBlogLeave}>
+          <button onClick={() => handleNav(link.href, link.section)} className={baseClass}>
             {link.label}
           </button>
-          {blogHover && <BlogDropdown onNavigate={(href) => handleNav(href, null)} variant={variant} />}
+          {blogHover && (
+            <MegaDropdown
+              items={blogDropdownItems}
+              highlights={blogHighlights}
+              onNavigate={(href) => handleNav(href, null)}
+              variant={variant}
+              categoryTitle="Categories"
+              highlightTitle="Featured"
+              viewAllHref="/blog"
+              viewAllLabel="View All Posts"
+            />
+          )}
+        </div>
+      );
+    }
+
+    if (link.label === "Programs") {
+      return (
+        <div key={link.label} className="relative" onMouseEnter={onProgramsEnter} onMouseLeave={onProgramsLeave}>
+          <button onClick={() => handleNav(link.href, link.section)} className={baseClass}>
+            {link.label}
+          </button>
+          {programsHover && (
+            <MegaDropdown
+              items={programDropdownItems}
+              highlights={programHighlights}
+              onNavigate={(href) => handleNav(href, null)}
+              variant={variant}
+              categoryTitle="Our Programs"
+              highlightTitle="Featured"
+              viewAllHref="/programs"
+              viewAllLabel="View All Programs"
+            />
+          )}
         </div>
       );
     }
 
     return (
-      <button
-        key={link.label}
-        onClick={() => handleNav(link.href, link.section)}
-        className={
-          variant === "dark"
-            ? "font-body text-sm px-4 py-1.5 rounded-full transition-all duration-200 tracking-wide text-white/85 hover:text-white hover:bg-white/15"
-            : `font-body text-sm transition-colors duration-200 tracking-wide ${
-                isActive(link.href, link.section) && link.label !== "Home"
-                  ? "text-gold font-semibold"
-                  : "text-foreground/70 hover:text-foreground"
-              }`
-        }
-      >
+      <button key={link.label} onClick={() => handleNav(link.href, link.section)} className={baseClass}>
         {link.label}
       </button>
     );
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
-      {/* Floating pill navbar — pre-scroll */}
-      {!scrolled ? (
-        <div className="px-4 md:px-8 pt-4">
-          <div
-            className="container mx-auto flex items-center justify-between px-4 py-3 rounded-full"
-            style={{
-              background: "hsl(var(--primary) / 0.18)",
-              backdropFilter: "blur(16px)",
-              WebkitBackdropFilter: "blur(16px)",
-              border: "1px solid hsl(var(--gold) / 0.25)",
-              boxShadow: "0 4px 32px hsl(var(--primary) / 0.18)",
-            }}
-          >
-            {/* Logo */}
-            <button onClick={() => handleNav("/", null)} className="flex items-center flex-shrink-0">
-              <img src={logoImg} alt="The Ultimate Life In Christ Ministries" className="h-10 w-auto brightness-0 invert" />
-            </button>
-
-            {/* Desktop Nav — centered pill */}
-            <nav className="hidden lg:flex items-center gap-1 px-6 py-2 rounded-full"
-              style={{ background: "hsl(0 0% 100% / 0.12)" }}>
-              {navLinks.map((link) => renderNavButton(link, "dark"))}
-            </nav>
-
-            {/* Right side */}
-            <div className="flex items-center gap-3">
-              <button
-                onClick={handlePartner}
-                className="hidden lg:inline-flex items-center gap-1.5 px-5 py-2.5 bg-gold text-white font-body font-bold text-sm rounded-full hover:brightness-110 transition-all duration-200 shadow-gold flex-shrink-0"
-              >
-                Partner With Us
-                <ArrowUpRight className="w-4 h-4" />
-              </button>
-              <button
-                className="lg:hidden text-white p-2 rounded-full hover:bg-white/15 transition-colors"
-                onClick={() => setOpen(!open)}
-              >
-                {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile/Tablet Dropdown */}
-          {open && (
+    <>
+      <header className="fixed top-0 left-0 right-0 z-50">
+        {!scrolled ? (
+          <div className="px-4 md:px-8 pt-4">
             <div
-              className="lg:hidden mt-2 mx-auto max-w-7xl rounded-2xl overflow-hidden"
+              className="container mx-auto flex items-center justify-between px-4 py-3 rounded-full"
               style={{
-                background: "hsl(var(--primary) / 0.92)",
-                backdropFilter: "blur(20px)",
-                border: "1px solid hsl(var(--gold) / 0.2)",
+                background: "hsl(var(--primary) / 0.18)",
+                backdropFilter: "blur(16px)",
+                WebkitBackdropFilter: "blur(16px)",
+                border: "1px solid hsl(var(--gold) / 0.25)",
+                boxShadow: "0 4px 32px hsl(var(--primary) / 0.18)",
               }}
             >
-              <div className="px-6 py-4 flex flex-col gap-1">
-                {navLinks.map((link) => (
-                  <button
-                    key={link.label}
-                    onClick={() => handleNav(link.href, link.section)}
-                    className="text-left font-body text-white/80 hover:text-white py-3 border-b border-white/10 transition-colors text-sm"
-                  >
-                    {link.label}
-                  </button>
-                ))}
+              <button onClick={() => handleNav("/", null)} className="flex items-center flex-shrink-0">
+                <img src={logoImg} alt="The Ultimate Life In Christ Ministries" className="h-10 w-auto brightness-0 invert" />
+              </button>
+
+              <nav className="hidden lg:flex items-center gap-1 px-6 py-2 rounded-full"
+                style={{ background: "hsl(0 0% 100% / 0.12)" }}>
+                {navLinks.map((link) => renderNavButton(link, "dark"))}
+              </nav>
+
+              <div className="flex items-center gap-3">
                 <button
                   onClick={handlePartner}
-                  className="mt-3 inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-gold text-white font-bold text-sm rounded-full"
+                  className="hidden lg:inline-flex items-center gap-1.5 px-5 py-2.5 bg-gold text-white font-body font-bold text-sm rounded-full hover:brightness-110 transition-all duration-200 shadow-gold flex-shrink-0"
                 >
-                  Partner With Us <ArrowUpRight className="w-4 h-4" />
+                  Partner With Us
+                  <ArrowUpRight className="w-4 h-4" />
+                </button>
+                <button
+                  className="lg:hidden text-white p-2 rounded-full hover:bg-white/15 transition-colors"
+                  onClick={() => setOpen(!open)}
+                >
+                  {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                 </button>
               </div>
             </div>
-          )}
-        </div>
-      ) : (
-        /* Scrolled — solid white bar */
-        <div className="bg-white shadow-md transition-all duration-300">
-          <div className="container mx-auto px-6 py-3 flex items-center justify-between">
-            <button onClick={() => handleNav("/", null)} className="flex items-center flex-shrink-0">
-              <img src={logoImg} alt="The Ultimate Life In Christ Ministries" className="h-10 w-auto" />
-            </button>
 
-            <nav className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-              {navLinks.map((link) => renderNavButton(link, "light"))}
-            </nav>
-
-            <div className="flex items-center gap-3">
-              <button
-                onClick={handlePartner}
-                className="hidden lg:inline-flex items-center gap-1.5 px-5 py-2.5 bg-gold text-white font-body font-bold text-sm rounded-full hover:brightness-110 transition-all duration-200 shadow-gold flex-shrink-0"
+            {open && (
+              <div
+                className="lg:hidden mt-2 mx-auto max-w-7xl rounded-2xl overflow-hidden"
+                style={{
+                  background: "hsl(var(--primary) / 0.92)",
+                  backdropFilter: "blur(20px)",
+                  border: "1px solid hsl(var(--gold) / 0.2)",
+                }}
               >
-                Partner With Us
-                <ArrowUpRight className="w-4 h-4" />
-              </button>
-              <button
-                className="lg:hidden text-foreground p-2 rounded-full hover:bg-muted transition-colors"
-                onClick={() => setOpen(!open)}
-              >
-                {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </button>
-            </div>
+                <div className="px-6 py-4 flex flex-col gap-1">
+                  {navLinks.map((link) => (
+                    <button
+                      key={link.label}
+                      onClick={() => handleNav(link.href, link.section)}
+                      className="text-left font-body text-white/80 hover:text-white py-3 border-b border-white/10 transition-colors text-sm"
+                    >
+                      {link.label}
+                    </button>
+                  ))}
+                  <button
+                    onClick={handlePartner}
+                    className="mt-3 inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-gold text-white font-bold text-sm rounded-full"
+                  >
+                    Partner With Us <ArrowUpRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
+        ) : (
+          <div className="bg-white shadow-md transition-all duration-300">
+            <div className="container mx-auto px-6 py-3 flex items-center justify-between">
+              <button onClick={() => handleNav("/", null)} className="flex items-center flex-shrink-0">
+                <img src={logoImg} alt="The Ultimate Life In Christ Ministries" className="h-10 w-auto" />
+              </button>
 
-          {/* Mobile/Tablet Dropdown */}
-          {open && (
-            <div className="lg:hidden bg-white border-t border-border shadow-lg">
-              <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
-                {navLinks.map((link) => (
-                  <button
-                    key={link.label}
-                    onClick={() => handleNav(link.href, link.section)}
-                    className="text-left font-body text-foreground/70 hover:text-foreground py-3 border-b border-border/50 transition-colors text-sm"
-                  >
-                    {link.label}
-                  </button>
-                ))}
+              <nav className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+                {navLinks.map((link) => renderNavButton(link, "light"))}
+              </nav>
+
+              <div className="flex items-center gap-3">
                 <button
                   onClick={handlePartner}
-                  className="mt-3 inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-gold text-white font-bold text-sm rounded-full"
+                  className="hidden lg:inline-flex items-center gap-1.5 px-5 py-2.5 bg-gold text-white font-body font-bold text-sm rounded-full hover:brightness-110 transition-all duration-200 shadow-gold flex-shrink-0"
                 >
-                  Partner With Us <ArrowUpRight className="w-4 h-4" />
+                  Partner With Us
+                  <ArrowUpRight className="w-4 h-4" />
+                </button>
+                <button
+                  className="lg:hidden text-foreground p-2 rounded-full hover:bg-muted transition-colors"
+                  onClick={() => setOpen(!open)}
+                >
+                  {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                 </button>
               </div>
             </div>
-          )}
-        </div>
-      )}
-    </header>
+
+            {open && (
+              <div className="lg:hidden bg-white border-t border-border shadow-lg">
+                <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
+                  {navLinks.map((link) => (
+                    <button
+                      key={link.label}
+                      onClick={() => handleNav(link.href, link.section)}
+                      className="text-left font-body text-foreground/70 hover:text-foreground py-3 border-b border-border/50 transition-colors text-sm"
+                    >
+                      {link.label}
+                    </button>
+                  ))}
+                  <button
+                    onClick={handlePartner}
+                    className="mt-3 inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-gold text-white font-bold text-sm rounded-full"
+                  >
+                    Partner With Us <ArrowUpRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </header>
+
+      <PartnerSheet open={partnerOpen} onClose={() => setPartnerOpen(false)} />
+    </>
   );
 }

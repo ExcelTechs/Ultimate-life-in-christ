@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Menu, X, ArrowUpRight, ArrowRight } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logoImg from "@/assets/logo.png";
+
+import heroChurch from "@/assets/hero-church.jpg";
+import farmingProject from "@/assets/farming-project.jpg";
 
 const navLinks = [
   { label: "Programs", href: "/programs", section: null },
@@ -11,13 +14,117 @@ const navLinks = [
   { label: "Contact", href: "/contact", section: null },
 ];
 
+const blogDropdownItems = [
+  { label: "All Posts", desc: "Browse all ministry stories", href: "/blog" },
+  { label: "Church Ministry", desc: "Church planting & growth updates", href: "/blog" },
+  { label: "Farming Projects", desc: "Agricultural impact stories", href: "/blog" },
+  { label: "Education", desc: "Skills training & school news", href: "/blog" },
+  { label: "Leadership", desc: "Leadership development insights", href: "/blog" },
+  { label: "Testimony", desc: "Stories of transformation", href: "/blog" },
+];
+
+const blogHighlights = [
+  { title: "Church Planting Is Transforming Communities", image: heroChurch, href: "/blog/1" },
+  { title: "Faith & Farming: Feeding Families", image: farmingProject, href: "/blog/2" },
+];
+
 interface NavbarProps {
   onPartnerClick?: () => void;
+}
+
+function BlogDropdown({ onNavigate, variant }: { onNavigate: (href: string) => void; variant: "light" | "dark" }) {
+  return (
+    <div
+      className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50"
+      style={{ width: "640px" }}
+    >
+      <div
+        className="rounded-2xl overflow-hidden shadow-2xl border"
+        style={{
+          background: variant === "dark"
+            ? "hsl(var(--primary) / 0.95)"
+            : "hsl(0 0% 100% / 0.98)",
+          backdropFilter: "blur(20px)",
+          borderColor: variant === "dark"
+            ? "hsl(var(--gold) / 0.2)"
+            : "hsl(var(--border))",
+        }}
+      >
+        <div className="grid grid-cols-[1fr_1fr] gap-0">
+          {/* Left — Categories */}
+          <div className="p-5">
+            <p className={`font-body text-xs tracking-widest uppercase font-bold mb-3 ${variant === "dark" ? "text-gold" : "text-gold"}`}>
+              Categories
+            </p>
+            <div className="space-y-0.5">
+              {blogDropdownItems.map((item) => (
+                <button
+                  key={item.label}
+                  onClick={() => onNavigate(item.href)}
+                  className={`w-full text-left px-3 py-2.5 rounded-lg transition-colors group ${
+                    variant === "dark"
+                      ? "hover:bg-white/10"
+                      : "hover:bg-muted"
+                  }`}
+                >
+                  <p className={`font-display font-semibold text-sm ${variant === "dark" ? "text-white/90" : "text-foreground"}`}>
+                    {item.label}
+                  </p>
+                  <p className={`font-body text-xs ${variant === "dark" ? "text-white/50" : "text-muted-foreground"}`}>
+                    {item.desc}
+                  </p>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — Featured posts with images */}
+          <div
+            className="p-5"
+            style={{
+              background: variant === "dark"
+                ? "hsl(var(--primary) / 0.5)"
+                : "hsl(var(--muted))",
+            }}
+          >
+            <p className={`font-body text-xs tracking-widest uppercase font-bold mb-3 ${variant === "dark" ? "text-gold" : "text-gold"}`}>
+              Featured
+            </p>
+            <div className="space-y-3">
+              {blogHighlights.map((post) => (
+                <button
+                  key={post.title}
+                  onClick={() => onNavigate(post.href)}
+                  className="w-full rounded-xl overflow-hidden relative group cursor-pointer block"
+                >
+                  <div className="h-24 relative">
+                    <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    <div className="absolute bottom-2 left-3 right-3">
+                      <p className="font-display font-bold text-white text-xs leading-snug">{post.title}</p>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => onNavigate("/blog")}
+              className="mt-3 w-full flex items-center justify-center gap-1.5 py-2 rounded-lg font-body text-xs font-bold text-gold hover:underline transition-colors"
+            >
+              View All Posts <ArrowRight className="w-3 h-3" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function Navbar({ onPartnerClick }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [blogHover, setBlogHover] = useState(false);
+  const blogTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -29,6 +136,7 @@ export default function Navbar({ onPartnerClick }: NavbarProps) {
 
   const handleNav = (href: string, section: string | null) => {
     setOpen(false);
+    setBlogHover(false);
     if (section) {
       if (location.pathname === "/") {
         document.querySelector(section)?.scrollIntoView({ behavior: "smooth" });
@@ -59,6 +167,61 @@ export default function Navbar({ onPartnerClick }: NavbarProps) {
     return location.pathname === href;
   };
 
+  const onBlogEnter = () => {
+    if (blogTimeoutRef.current) clearTimeout(blogTimeoutRef.current);
+    setBlogHover(true);
+  };
+  const onBlogLeave = () => {
+    blogTimeoutRef.current = setTimeout(() => setBlogHover(false), 200);
+  };
+
+  const renderNavButton = (link: typeof navLinks[0], variant: "light" | "dark") => {
+    if (link.label === "Blog") {
+      return (
+        <div
+          key={link.label}
+          className="relative"
+          onMouseEnter={onBlogEnter}
+          onMouseLeave={onBlogLeave}
+        >
+          <button
+            onClick={() => handleNav(link.href, link.section)}
+            className={
+              variant === "dark"
+                ? "font-body text-sm px-4 py-1.5 rounded-full transition-all duration-200 tracking-wide text-white/85 hover:text-white hover:bg-white/15"
+                : `font-body text-sm transition-colors duration-200 tracking-wide ${
+                    isActive(link.href, link.section)
+                      ? "text-gold font-semibold"
+                      : "text-foreground/70 hover:text-foreground"
+                  }`
+            }
+          >
+            {link.label}
+          </button>
+          {blogHover && <BlogDropdown onNavigate={(href) => handleNav(href, null)} variant={variant} />}
+        </div>
+      );
+    }
+
+    return (
+      <button
+        key={link.label}
+        onClick={() => handleNav(link.href, link.section)}
+        className={
+          variant === "dark"
+            ? "font-body text-sm px-4 py-1.5 rounded-full transition-all duration-200 tracking-wide text-white/85 hover:text-white hover:bg-white/15"
+            : `font-body text-sm transition-colors duration-200 tracking-wide ${
+                isActive(link.href, link.section) && link.label !== "Home"
+                  ? "text-gold font-semibold"
+                  : "text-foreground/70 hover:text-foreground"
+              }`
+        }
+      >
+        {link.label}
+      </button>
+    );
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Floating pill navbar — pre-scroll */}
@@ -82,20 +245,11 @@ export default function Navbar({ onPartnerClick }: NavbarProps) {
             {/* Desktop Nav — centered pill */}
             <nav className="hidden lg:flex items-center gap-1 px-6 py-2 rounded-full"
               style={{ background: "hsl(0 0% 100% / 0.12)" }}>
-              {navLinks.map((link) => (
-                <button
-                  key={link.label}
-                  onClick={() => handleNav(link.href, link.section)}
-                  className="font-body text-sm px-4 py-1.5 rounded-full transition-all duration-200 tracking-wide text-white/85 hover:text-white hover:bg-white/15"
-                >
-                  {link.label}
-                </button>
-              ))}
+              {navLinks.map((link) => renderNavButton(link, "dark"))}
             </nav>
 
             {/* Right side */}
             <div className="flex items-center gap-3">
-              {/* Partner CTA */}
               <button
                 onClick={handlePartner}
                 className="hidden lg:inline-flex items-center gap-1.5 px-5 py-2.5 bg-gold text-white font-body font-bold text-sm rounded-full hover:brightness-110 transition-all duration-200 shadow-gold flex-shrink-0"
@@ -103,8 +257,6 @@ export default function Navbar({ onPartnerClick }: NavbarProps) {
                 Partner With Us
                 <ArrowUpRight className="w-4 h-4" />
               </button>
-
-              {/* Tablet/Mobile Toggle */}
               <button
                 className="lg:hidden text-white p-2 rounded-full hover:bg-white/15 transition-colors"
                 onClick={() => setOpen(!open)}
@@ -148,29 +300,14 @@ export default function Navbar({ onPartnerClick }: NavbarProps) {
         /* Scrolled — solid white bar */
         <div className="bg-white shadow-md transition-all duration-300">
           <div className="container mx-auto px-6 py-3 flex items-center justify-between">
-            {/* Logo */}
             <button onClick={() => handleNav("/", null)} className="flex items-center flex-shrink-0">
               <img src={logoImg} alt="The Ultimate Life In Christ Ministries" className="h-10 w-auto" />
             </button>
 
-            {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-              {navLinks.map((link) => (
-                <button
-                  key={link.label}
-                  onClick={() => handleNav(link.href, link.section)}
-                  className={`font-body text-sm transition-colors duration-200 tracking-wide ${
-                    isActive(link.href, link.section) && link.label !== "Home"
-                      ? "text-gold font-semibold"
-                      : "text-foreground/70 hover:text-foreground"
-                  }`}
-                >
-                  {link.label}
-                </button>
-              ))}
+              {navLinks.map((link) => renderNavButton(link, "light"))}
             </nav>
 
-            {/* Right side */}
             <div className="flex items-center gap-3">
               <button
                 onClick={handlePartner}
@@ -179,8 +316,6 @@ export default function Navbar({ onPartnerClick }: NavbarProps) {
                 Partner With Us
                 <ArrowUpRight className="w-4 h-4" />
               </button>
-
-              {/* Tablet/Mobile Toggle */}
               <button
                 className="lg:hidden text-foreground p-2 rounded-full hover:bg-muted transition-colors"
                 onClick={() => setOpen(!open)}
@@ -217,5 +352,3 @@ export default function Navbar({ onPartnerClick }: NavbarProps) {
     </header>
   );
 }
-
-

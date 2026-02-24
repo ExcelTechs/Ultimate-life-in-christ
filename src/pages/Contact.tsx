@@ -6,22 +6,25 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      {/* Hero Header */}
-      <div className="relative pt-24">
-        <div className="gradient-navy py-20 md:py-28">
-          <div className="container mx-auto px-6 text-center">
-            <p className="font-body text-gold tracking-widest uppercase text-sm font-bold mb-3">
-              We'd Love To Hear From You
-            </p>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground max-w-3xl mx-auto">
-              Contact Us
-            </h1>
-            <p className="font-body text-primary-foreground/70 mt-4 max-w-xl mx-auto text-lg leading-relaxed">
-              Reach out to partner, volunteer, or learn more about our mission. Together we can transform lives and communities.
-            </p>
-          </div>
+      {/* Page Hero */}
+      <section
+        className="pt-36 pb-20 relative overflow-hidden"
+        style={{
+          background: "linear-gradient(120deg, hsl(285 65% 14%) 0%, hsl(310 80% 22%) 60%, hsl(330 100% 35%) 100%)",
+        }}
+      >
+        <div className="container mx-auto px-6 relative z-10 text-center">
+          <p className="font-body text-white/60 text-xs tracking-[0.25em] uppercase mb-4">
+            We'd Love To Hear From You
+          </p>
+          <h1 className="font-display font-black text-white text-5xl md:text-6xl mb-6">
+            Contact Us
+          </h1>
+          <p className="font-body text-white/75 text-lg max-w-xl mx-auto">
+            Reach out to partner, volunteer, or learn more about our mission. Together we can transform lives and communities.
+          </p>
         </div>
-      </div>
+      </section>
       <ContactSection />
       <Footer />
     </div>

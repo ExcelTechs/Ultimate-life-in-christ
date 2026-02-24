@@ -36,7 +36,7 @@ export default function HeroSection() {
             className="font-display font-black text-white leading-[1.05] mb-6 animate-fade-up"
             style={{ fontSize: "clamp(2.5rem, 6vw, 5.5rem)", animationDelay: "0.1s" }}
           >
-            The <br /> Ultimate Life In Christ<br />
+            The Ultimate Life In Christ<br />
             <span className="text-white/90 whitespace-nowrap">ministries</span>
            
           </h1>

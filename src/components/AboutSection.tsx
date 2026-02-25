@@ -47,12 +47,12 @@ const team = [
 ];
 
 const pastoralTeam = [
-  { name: "Pastor James Phiri", role: "Senior Pastor", image: pastorJames },
-  { name: "Pastor Grace Tembo", role: "Worship Director", image: pastorGrace },
-  { name: "Pastor Samuel Mwale", role: "Youth Ministry", image: pastorSamuel },
-  { name: "Pastor Esther Zulu", role: "Women's Pastor", image: pastorEsther },
-  { name: "Pastor John Nkomo", role: "Outreach Coordinator", image: pastorJohn },
-  { name: "Pastor Mary Lungu", role: "Children's Ministry", image: pastorMary },
+  { name: "Roger Kaye", role: "Administration, Worship Director at Life in Christ church", image: pastorJames },
+  { name: "Mrs Hannah Itaagi", role: "Children's ministry Head", image: pastorGrace },
+  { name: "Pastor Eliyah Kasumba", role: "Evangelism and Missions (External Outreach)", image: pastorSamuel },
+  { name: "Pastor Wesley Itaagi ", role: "Youth Pastor and Administration Head", image: pastorEsther },
+  { name: "Pastor Joseph Mukisa ", role: "Asst. And Resident Pastor at Life in Christ church", image: pastorJohn },
+  { name: "Vivian Mujaasi Kaye", role: "Administration, Worship Director at Life in Christ church", image: pastorMary },
 ];
 
 export default function AboutSection() {

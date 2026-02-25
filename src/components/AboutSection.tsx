@@ -1,6 +1,4 @@
-import { useState } from "react";
 import communityWorship from "@/assets/community-worship.jpg";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import pastorJames from "@/assets/pastor-james.jpg";
 import pastorGrace from "@/assets/pastor-grace.jpg";
 import pastorSamuel from "@/assets/pastor-samuel.jpg";
@@ -21,26 +19,26 @@ const stats = [
 
 const team = [
   {
-    name: "Bishop Emmanuel",
+    name: "Yiga Ivan",
     role: "Founder & Senior Pastor",
     bio: "Visionary leader with over 20 years of ministry, pioneering church planting and community transformation across the region.",
     image: teamBishop,
   },
   {
-    name: "Pastor Sarah Moyo",
-    role: "Director of Education",
+    name: "Joab Sonko",
+    role: "Director ",
     bio: "Passionate educator overseeing schools and vocational training programs that equip the next generation with purpose and skill.",
     image: teamSarah,
   },
   {
-    name: "Elder David Chirwa",
-    role: "Head of Agricultural Projects",
+    name: "Mr. Hope Nelson",
+    role: "Fundraising coordinator",
     bio: "Leading sustainable farming initiatives that provide food security and economic empowerment for local families.",
     image: teamDavid,
   },
   {
-    name: "Minister Ruth Banda",
-    role: "Women's Ministry Leader",
+    name: "Godfrey Tinka",
+    role: "Director",
     bio: "Championing the spiritual and social empowerment of women through discipleship, skills training, and community outreach.",
     image: teamRuth,
   },
@@ -56,13 +54,6 @@ const pastoralTeam = [
 ];
 
 export default function AboutSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const prev = () => setActiveIndex((i) => (i - 1 + team.length) % team.length);
-  const next = () => setActiveIndex((i) => (i + 1) % team.length);
-
-  const getCardIndex = (offset: number) => (activeIndex + offset + team.length) % team.length;
-
   return (
     <section id="about" className="py-24 bg-background">
       <div className="container mx-auto px-6">
@@ -117,60 +108,27 @@ export default function AboutSection() {
           ))}
         </div>
 
-        {/* Our Team — Carousel */}
+        {/* Meet the Team — Four Cards */}
         <div className="mt-28">
-          <div className="text-center mb-14">
+          <div className="text-center mb-12">
             <p className="font-body text-gold tracking-widest uppercase text-sm font-bold mb-3">The People Behind the Vision</p>
             <div className="section-divider" />
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground max-w-2xl mx-auto">Meet Our Team</h2>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground max-w-2xl mx-auto">Meet the Team</h2>
+            <p className="font-body text-muted-foreground text-lg max-w-2xl mx-auto mt-4">
+              A passionate group of leaders driving transformation and hope across communities.
+            </p>
           </div>
 
-          {/* 3D Carousel */}
-          <div className="relative py-8">
-            <div className="flex items-center justify-center gap-4 md:gap-0 h-[420px] md:h-[460px] relative">
-              <div
-                className="absolute left-[5%] md:left-[12%] w-56 md:w-64 transition-all duration-500 ease-in-out cursor-pointer z-10 opacity-60 scale-[0.85]"
-                style={{ transform: "perspective(1000px) rotateY(15deg) scale(0.85)" }}
-                onClick={prev}
-              >
-                <TeamCard member={team[getCardIndex(-1)]} compact />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6">
+            {team.map((member) => (
+              <div key={member.name} className="relative rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.15)] border border-border bg-card aspect-[3/4]">
+                <img src={member.image} alt={member.name} className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 bg-gradient-to-t from-black/70 via-black/30 to-transparent pt-16">
+                  <h4 className="font-display font-bold text-white text-base sm:text-lg">{member.name}</h4>
+                  <p className="font-body text-white/80 text-xs sm:text-sm">{member.role}</p>
+                </div>
               </div>
-              <div className="relative z-20 w-72 md:w-80 transition-all duration-500 ease-in-out">
-                <TeamCard member={team[activeIndex]} />
-              </div>
-              <div
-                className="absolute right-[5%] md:right-[12%] w-56 md:w-64 transition-all duration-500 ease-in-out cursor-pointer z-10 opacity-60 scale-[0.85]"
-                style={{ transform: "perspective(1000px) rotateY(-15deg) scale(0.85)" }}
-                onClick={next}
-              >
-                <TeamCard member={team[getCardIndex(1)]} compact />
-              </div>
-            </div>
-
-            <button
-              onClick={prev}
-              className="absolute left-0 md:left-[4%] top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-background border border-border shadow-md flex items-center justify-center hover:border-gold hover:text-gold transition-colors"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={next}
-              className="absolute right-0 md:right-[4%] top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-background border border-border shadow-md flex items-center justify-center hover:border-gold hover:text-gold transition-colors"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-
-            <div className="flex items-center justify-center gap-2 mt-8">
-              {team.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveIndex(i)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                    i === activeIndex ? "bg-gold w-8" : "bg-border hover:bg-gold/40"
-                  }`}
-                />
-              ))}
-            </div>
+            ))}
           </div>
         </div>
 
@@ -212,31 +170,5 @@ export default function AboutSection() {
         </div>
       </div>
     </section>
-  );
-}
-
-function TeamCard({ member, compact }: { member: typeof team[0]; compact?: boolean }) {
-  return (
-    <div className={`rounded-2xl overflow-hidden shadow-lg border border-border bg-card ${compact ? "" : "shadow-xl"}`}>
-      <div className={`relative ${compact ? "h-44" : "h-56"}`}>
-        <img
-          src={member.image}
-          alt={member.name}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      </div>
-      <div className={`text-center ${compact ? "p-4" : "p-6"}`}>
-        <h4 className={`font-display font-bold text-foreground ${compact ? "text-base" : "text-xl"} mb-1`}>
-          {member.name}
-        </h4>
-        <p className="font-body text-gold text-xs tracking-widest uppercase font-bold mb-3">{member.role}</p>
-        {!compact && (
-          <>
-            <div className="h-px w-10 mx-auto bg-border mb-3" />
-            <p className="font-body text-muted-foreground text-sm leading-relaxed">{member.bio}</p>
-          </>
-        )}
-      </div>
-    </div>
   );
 }
